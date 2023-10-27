@@ -1,0 +1,44 @@
+spark-shell
+val info =Array(1,2,3,4,5)
+print(info)
+
+val reduce1=sc.parallelize(info)
+reduce1.reduce((a,b)=>a*b)
+reduce1.reduce((a,b)=>a+b)
+reduce1.reduce((a,b)=>a*a+b*b)
+
+
+val data=sc.parallelize(List(10,20,30))
+data.collect
+val b = data.map(x=>x+10)
+b.collect
+print(b)
+
+val c=b.filter(x=>x!=40)
+c.collect
+print(c)
+
+
+val e= c.count()
+
+val f = b.cartesian(data)
+f.collect
+print(f)
+
+
+val data1=sc.parallelize(Seq(('c',3),('a',1),('s',6),('a',12),('c',5)))
+
+data1.collect
+print(data1)
+
+val data2=data1.sortByKey()
+data2.collect
+print(data2)
+
+val data3=data2.groupByKey()
+data3.collect
+print(data3)
+
+val data4=data3.reduceByKey(((value,x)=>(value+x)))
+data4.collect()
+print(data4)
